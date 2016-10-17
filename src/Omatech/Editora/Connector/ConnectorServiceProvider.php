@@ -1,6 +1,6 @@
 <?php
 
-namespace Omatech\Connector;
+namespace Omatech\Editora\Connector;
 
 use Illuminate\Support\ServiceProvider;
 use Omatech\Editora\Utils\Editora;

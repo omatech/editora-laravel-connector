@@ -1,5 +1,5 @@
 <?php
-namespace Omatech\Connector;
+namespace Omatech\Editora\Connector;
 
 use App;
 Use Session;

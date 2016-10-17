@@ -6,5 +6,10 @@
         "omatech/editora-extractor": "1.*"
     },
     "require-dev": {
+    },
+    "autoload": {
+        "psr-4": {
+            "Omatech\\": "src/Omatech"
+        }
     }
 }
