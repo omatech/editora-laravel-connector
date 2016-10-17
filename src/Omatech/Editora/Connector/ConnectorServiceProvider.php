@@ -40,6 +40,6 @@ class ConnectorServiceProvider extends ServiceProvider
             return new Editora($this->db);
         });
 
-        $this->app->make('Omatech\Connector\EditoraController');
+        $this->app->make('Omatech\Editora\Connector\EditoraController');
     }
 }
