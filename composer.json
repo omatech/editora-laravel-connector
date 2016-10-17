@@ -6,7 +6,6 @@
         "omatech/editora-utils": "dev-master",
         "omatech/editora-extractor": "dev-master"
     },
-	"require-dev": {
+    "require-dev": {
     }
 }
-
