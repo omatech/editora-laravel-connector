@@ -14,19 +14,18 @@ session_start(); //Editora
 class EditoraController extends Controller
 {
     protected $utils;
-    protected $extractor;
 
     public function __construct() {
         $this->utils = App::make('Editora');
-        $this->extractor = App::make('Extractor');
     }
 
     public function __invoke(Request $request) {
+
         /**
          *
          **/
         $language = $request->route('language');
-        $niceUrl  = $request->route('nice_url');
+        $nice_url  = $request->route('nice_url');
         $req_info = $request->input('req_info');
 
         $preview = $this->editMode($req_info);
@@ -34,19 +33,35 @@ class EditoraController extends Controller
         /**
          *
          **/
-        $this->setLanguageFromSession();
-        if($language) $this->setLanguageToSession($language);
+        $currentLang = $this->getBrowserLanguage();
+        $currentLang = $this->getLanguageFromSession($currentLang);
+        $currentLang = (isset($language)) ? $language : $currentLang;
+        $currentLang = ($currentLang != '') ? $currentLang : env('APP_LANG');
+
+        session(['locale' => $currentLang]);
+        $_SESSION['u_lang'] = $currentLang;
+        App::setLocale(session('locale'));
 
         /**
          *
          **/
-        $urlData = $this->utils->get_url_data($language, $niceUrl);
+        if(!$language && !$nice_url && env('APP_NICEURL') === true) {
+            $nice = $this->utils->get_nice_from_id(1, $currentLang);
+            return redirect('/'.$currentLang.'/'.$nice);
+        } else if(!$language && !$nice_url && env('APP_NICEURL') === false) {
+            $nice = $this->utils->get_nice_from_id(1, $currentLang);
+            return redirect('/'.$currentLang);
+        }
+
+        /**
+         *
+         **/
+        $urlData = $this->utils->get_url_data($currentLang, $nice_url);
 
         /**
          *
          **/
         if($urlData['type'] === "Error") abort(404);
-        if($urlData['type'] === "ChangeLanguage") return redirect('/');
 
         /**
          *
@@ -54,19 +69,10 @@ class EditoraController extends Controller
         $className = 'App\\Http\\Controllers\\Editora\\'.$urlData['class_tag'];
         $class = new $className;
 
-        $class->urlData = $urlData;
-        $class->language = $this->getCurrentLanguage();
         $class->inst_id = (array_key_exists('id', $urlData)) ? $urlData['id'] : 1;
         $class->preview = $preview;
 
         return $class->render();
-    }
-
-    /**
-     *
-     **/
-    protected function extract($query = null, $params = null, $object, $ferret) {
-        return $this->extractor->extract($query, $params, $object, $ferret);
     }
 
     /**
@@ -89,24 +95,40 @@ class EditoraController extends Controller
     /**
      *
      **/
-    private function setLanguageFromSession() {
-        $lang = (Session::get('locale') !== null) ? Session::get('locale') : env('APP_LANG');
-        $_SESSION['u_lang'] = Session::get('locale');
-        App::setLocale($lang);
+    private function getBrowserLanguage() {
+        $http_accept = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
+        $deflang = "";
+
+        if(isset($http_accept) && strlen($http_accept) > 1)  {
+            # Split possible languages into array
+            $x = explode(',', $http_accept);
+            foreach ($x as $val) {
+                #check for q-value and create associative array. No q-value means 1 by rule
+                if(preg_match("/(.*);q=([0-1]{0,1}.\d{0,4})/i", $val, $matches))
+                    $lang[$matches[1]] = (float)$matches[2];
+                else
+                    $lang[$val] = 1.0;
+            }
+
+            #return default language (highest q-value)
+            $qval = 0.0;
+            foreach ($lang as $key => $value) {
+                if ($value > $qval) {
+                    $qval = (float)$value;
+                    $deflang = $key;
+                }
+            }
+            $deflang = explode('-', $deflang);
+            if(is_array($deflang)) $deflang = $deflang[0];
+        }
+        return strtolower($deflang);
     }
 
     /**
      *
      **/
-    private function getCurrentLanguage() {
-        return App::getLocale();
-    }
-
-    /**
-     *
-     **/
-    private function setLanguageToSession($language) {
-        Session::put('locale', $language);
-        $this->setLanguageFromSession();
+    private function getLanguageFromSession($currentLang) {
+        $language = (session('locale') !== null) ? session('locale') : $currentLang;
+        return strtolower($language);
     }
 }

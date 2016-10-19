@@ -2,8 +2,8 @@
     "name": "omatech/editora-laravel-connector",
     "description": "",
     "require": {
-        "omatech/editora-utils": "1.*",
-        "omatech/editora-extractor": "1.*"
+        "omatech/editora-utils": "dev-master as 1.*",
+        "omatech/editora-extractor": "dev-master as 1.*"
     },
     "require-dev": {
     },
