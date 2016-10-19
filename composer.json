@@ -3,8 +3,8 @@
     "description": "",
     "minimum-stability":"dev",
     "require": {
-        "omatech/editora-utils": "1.*",
-        "omatech/editora-extractor": "1.*"
+        "omatech/editora-utils": "dev-master",
+        "omatech/editora-extractor": "dev-master"
     },
     "require-dev": {
     },
