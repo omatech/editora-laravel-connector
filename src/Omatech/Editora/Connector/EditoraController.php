@@ -46,11 +46,11 @@ class EditoraController extends Controller
          *
          **/
         if(!$nice_url) {
-            if(env('APP_NICEURL') === true) {
+            if(env('APP_HOMENICEURL') === true) {
                 $nice = $this->utils->get_nice_from_id(1, $currentLang);
                 return redirect('/'.$currentLang.'/'.$nice);
-            } else if(!$language && env('APP_NICEURL') === false) {
-                return redirect('/'.$currentLang);
+            } else if(!$language && env('APP_HOMENICEURL') === false) {
+                return redirect('/'.$currentLang.'/');
             }
         }
 
