@@ -62,7 +62,7 @@ class EditoraModel {
                 'lang'     => App::getLocale(),
                 'preview'  => $query['preview'],
                 'debug'    => $query['debug'],
-                'metadata' => $query['metadata']
+                'metadata' => true
             ];
 
             return self::extract($graphql, $params, 'array', true);

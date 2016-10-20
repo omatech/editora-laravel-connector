@@ -2,8 +2,6 @@
 namespace Omatech\Editora\Connector;
 
 use App;
-Use Session;
-use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Omatech\Editora\Utils\Editora as Utils;
@@ -25,7 +23,7 @@ class EditoraController extends Controller
          *
          **/
         $language = $request->route('language');
-        $nice_url  = $request->route('nice_url');
+        $nice_url = $request->route('nice_url');
         $req_info = $request->input('req_info');
 
         $preview = $this->editMode($req_info);
@@ -72,6 +70,9 @@ class EditoraController extends Controller
 
         $class->inst_id = (array_key_exists('id', $urlData)) ? $urlData['id'] : 1;
         $class->preview = $preview;
+
+        $class->viewData['metaLanguages']   = $this->otherLanguagesMeta($class->inst_id, $currentLang, $nice_url);
+        $class->viewData['currentLanguage'] = $currentLang;
 
         return $class->render();
     }
@@ -131,5 +132,26 @@ class EditoraController extends Controller
     private function getLanguageFromSession($currentLang) {
         $language = (session('locale') !== null) ? session('locale') : $currentLang;
         return strtolower($language);
+    }
+
+    /**
+     *
+     **/
+    private function otherLanguagesMeta($inst_id, $currentLang, $nice_url) {
+        $metaLanguages = "";
+        $languages = $this->utils->other_languages_url($inst_id, $currentLang);
+
+        if($languages !== null && $languages !== "") {
+            foreach($languages as $language) {
+                if($nice_url !== null)
+                    $url = url()->to('/'.$language['language'].'/'.$language['niceurl']);
+                else
+                    $url = url()->to('/'.$language['language'].'/');
+
+                $metaLanguages[] = "<link rel='alternate' hreflang='".$language['language']."' href='".$url."' />";
+            }
+        }
+
+        return $metaLanguages;
     }
 }
