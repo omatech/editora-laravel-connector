@@ -45,12 +45,13 @@ class EditoraController extends Controller
         /**
          *
          **/
-        if(!$language && !$nice_url && env('APP_NICEURL') === true) {
-            $nice = $this->utils->get_nice_from_id(1, $currentLang);
-            return redirect('/'.$currentLang.'/'.$nice);
-        } else if(!$language && !$nice_url && env('APP_NICEURL') === false) {
-            $nice = $this->utils->get_nice_from_id(1, $currentLang);
-            return redirect('/'.$currentLang);
+        if(!$nice_url) {
+            if(env('APP_NICEURL') === true) {
+                $nice = $this->utils->get_nice_from_id(1, $currentLang);
+                return redirect('/'.$currentLang.'/'.$nice);
+            } else if(!$language && env('APP_NICEURL') === false) {
+                return redirect('/'.$currentLang);
+            }
         }
 
         /**
