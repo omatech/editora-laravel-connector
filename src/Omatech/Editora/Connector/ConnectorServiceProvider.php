@@ -39,7 +39,5 @@ class ConnectorServiceProvider extends ServiceProvider
         $this->app->singleton('Editora', function ($app) {
             return new Editora($this->db);
         });
-
-        $this->app->make('Omatech\Editora\Connector\EditoraController');
     }
 }
