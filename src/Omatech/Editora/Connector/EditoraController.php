@@ -65,7 +65,12 @@ class EditoraController extends Controller
         /**
          *
          **/
-        $className = 'App\\Http\\Controllers\\Editora\\'.$urlData['class_tag'];
+        $classTag = str_replace('_', '', ucwords($urlData['class_tag'], '_'));
+
+        /**
+         *
+         **/
+        $className = 'App\\Http\\Controllers\\Editora\\'.$classTag;
         $class = new $className;
 
         $class->inst_id = (array_key_exists('id', $urlData)) ? $urlData['id'] : 1;

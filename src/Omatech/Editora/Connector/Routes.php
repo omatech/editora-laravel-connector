@@ -12,7 +12,5 @@
 */
 
 Route::group(['middleware' => ['web']], function() {
-    Route::get('/', 'Omatech\Editora\Connector\EditoraController');
-    Route::get('/{language}', 'Omatech\Editora\Connector\EditoraController');
-    Route::get('/{language}/{nice_url}', 'Omatech\Editora\Connector\EditoraController');
+    Route::get('/{language?}/{nice_url?}', 'Omatech\Editora\Connector\EditoraController');
 });
