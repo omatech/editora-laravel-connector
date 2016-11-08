@@ -16,11 +16,11 @@ class EditoraModel {
         return $result;
     }
 
-    public static function magic($query, $params, &$debug = "") {
+    public static function magic($query, $params, &$debugMessages = "") {
         $params['lang'] = App::getLocale();
         $params['metadata'] = true;
 
         $query = GraphQLPreprocessor::generate($query);
-        return self::extract($query, $params, 'array', true, $debug);
+        return self::extract($query, $params, 'array', true, $debugMessages);
     }
 }
