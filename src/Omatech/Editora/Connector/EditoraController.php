@@ -153,7 +153,8 @@ class EditoraController extends Controller
                 else
                     $url = url()->to('/'.$language['language'].'/');
 
-                $metaLanguages[] = "<link rel='alternate' hreflang='".$language['language']."' href='".$url."' />";
+                $metaLanguages[$language['language']]['hreflang'] = $language['language'];
+                $metaLanguages[$language['language']]['href'] = $url;
             }
         }
 
