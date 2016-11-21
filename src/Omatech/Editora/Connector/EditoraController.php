@@ -17,7 +17,7 @@ class EditoraController extends Controller
         $this->utils = App::make('Editora');
     }
 
-    public function __invoke(Request $request) {
+    public function init(Request $request) {
 
         /**
          *
