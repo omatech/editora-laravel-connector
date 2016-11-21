@@ -17,7 +17,7 @@ class EditoraController extends Controller
         $this->utils = App::make('Editora');
     }
 
-    public function init(Request $request) {
+    public function __invoke(Request $request) {
 
         /**
          *
@@ -33,8 +33,8 @@ class EditoraController extends Controller
          **/
         $currentLang = $this->getBrowserLanguage();
         $currentLang = $this->getLanguageFromSession($currentLang);
-        $currentLang = (isset($language)) ? $language : $currentLang;
-        $currentLang = ($currentLang != '') ? $currentLang : env('APP_LANG');
+        $currentLang = (isset($language) && in_array($language, explode(',', env('APP_AVAILABLE_LANGUAGES')))) ? $language : $currentLang;
+        $currentLang = ($currentLang != '') ? $currentLang : env('APP_DEFAULT_LANGUAGE');
 
         session(['locale' => $currentLang]);
         $_SESSION['u_lang'] = $currentLang;
@@ -60,7 +60,7 @@ class EditoraController extends Controller
         /**
          *
          **/
-        if($urlData['type'] === "Error") abort(404);
+        if($urlData['type'] === "Error") $urlData['class_tag'] = "Error_404";
 
         /**
          *
