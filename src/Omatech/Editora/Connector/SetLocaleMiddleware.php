@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Middleware;
+namespace Omatech\Editora\Connector;
 
 use Closure;
 use App;
