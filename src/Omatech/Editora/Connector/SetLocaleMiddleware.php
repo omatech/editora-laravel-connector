@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use App;
 
-class SetLocale
+class SetLocaleMiddleware
 {
     /**
      * Handle an incoming request.
