@@ -12,5 +12,19 @@
 */
 
 Route::group(['middleware' => ['web']], function() {
-    Route::get('/{language?}/{nice_url?}', 'Omatech\Editora\Connector\EditoraController@init');
+
+    $routes = config('editora.routeParams');
+
+
+    foreach($routes as $route)
+    {
+        $routeString = '';
+
+        foreach($route as $param)
+        {
+            $routeString .= '/{'.$param.'?}';
+        }
+
+        Route::get($routeString, 'Omatech\Editora\Connector\EditoraController@init');
+    }
 });

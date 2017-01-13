@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Omatech\Editora\Utils\Editora as Utils;
 use Omatech\Editora\Extractor\Editora as Extractor;
 
-session_start(); //Editora
+session_start(); //Editora Admin Session
 
 class EditoraController extends Controller
 {
@@ -79,7 +79,7 @@ class EditoraController extends Controller
         $class->viewData['metaLanguages']   = $this->otherLanguagesMeta($class->inst_id, $currentLang, $nice_url);
         $class->viewData['currentLanguage'] = $currentLang;
 
-        return $class->render();
+        return $class->render($request);
     }
 
     /**

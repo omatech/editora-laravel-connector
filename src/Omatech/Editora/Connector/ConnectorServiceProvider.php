@@ -15,7 +15,12 @@ class ConnectorServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->publishes([
+            __DIR__.'/EditoraConfig.php' => config_path('editora.php'),
+        ]);
+
         include __DIR__.'/Routes.php';
+
     }
 
     /**
@@ -25,6 +30,10 @@ class ConnectorServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->mergeConfigFrom(
+            __DIR__.'/EditoraConfig.php', 'editora'
+        );
+
         $this->db = [
             'dbname' => env('DB_DATABASE'),
             'dbuser' => env('DB_USERNAME'),
@@ -39,5 +48,7 @@ class ConnectorServiceProvider extends ServiceProvider
         $this->app->singleton('Editora', function ($app) {
             return new Editora($this->db);
         });
+
+        $this->app['router']->middleware('setLocale', 'Omatech\Editora\Connector\SetLocaleMiddleware');
     }
 }
