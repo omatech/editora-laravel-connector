@@ -11,10 +11,9 @@
 |
 */
 
-Route::group(['middleware' => ['web']], function() {
-
+Route::group(['middleware' => ['web']], function()
+{
     $routes = config('editora.routeParams');
-
 
     foreach($routes as $route)
     {

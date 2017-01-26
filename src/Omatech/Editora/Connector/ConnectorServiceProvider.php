@@ -2,9 +2,10 @@
 
 namespace Omatech\Editora\Connector;
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
-use Omatech\Editora\Utils\Editora;
 use Omatech\Editora\Extractor\Extractor;
+use Omatech\Editora\Utils\Editora;
 
 class ConnectorServiceProvider extends ServiceProvider
 {
@@ -15,12 +16,24 @@ class ConnectorServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        //Publicamos el archivo de confuración
         $this->publishes([
-            __DIR__.'/EditoraConfig.php' => config_path('editora.php'),
+            __DIR__.'/Configuration.php' => config_path('editora.php'),
         ]);
 
+        //Publicamos los assets
+        $this->publishes([
+            __DIR__.'/Assets/js' => public_path('js'),
+            __DIR__.'/Assets/css' => public_path('css'),
+            __DIR__.'/Assets/images' => public_path('images'),
+        ], 'public');
+
+        //Rutas
         include __DIR__.'/Routes.php';
 
+        //Directivas de Blade
+        include __DIR__.'/Directives/GenerateEditLinkDirective.php';
+        include __DIR__.'/Directives/GenerateEditoraEditScriptsDirective.php';
     }
 
     /**
@@ -31,7 +44,7 @@ class ConnectorServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__.'/EditoraConfig.php', 'editora'
+            __DIR__.'/Configuration.php', 'editora'
         );
 
         $this->db = [
@@ -49,6 +62,6 @@ class ConnectorServiceProvider extends ServiceProvider
             return new Editora($this->db);
         });
 
-        $this->app['router']->middleware('setLocale', 'Omatech\Editora\Connector\SetLocaleMiddleware');
+        $this->app['router']->middleware('setLocale', 'Omatech\Editora\Connector\Middlewares\SetLocaleMiddleware');
     }
 }

@@ -33,8 +33,9 @@ class EditoraController extends Controller
          **/
         $currentLang = $this->getBrowserLanguage();
         $currentLang = $this->getLanguageFromSession($currentLang);
-        $currentLang = (isset($language) && in_array($language, explode(',', env('APP_AVAILABLE_LANGUAGES')))) ? $language : $currentLang;
-        $currentLang = ($currentLang != '') ? $currentLang : env('APP_DEFAULT_LANGUAGE');
+        $currentLang = (isset($language) && in_array($language, config('editora.availableLanguages'))) ? $language : $currentLang;
+        $currentLang = ($currentLang != '') ? $currentLang : config('editora.defaultLanguage');
+        $currentLang = (config('editora.forcedLanguage') !== '') ? config('editora.forcedLanguage') : $currentLang;
 
         session(['locale' => $currentLang]);
         $_SESSION['u_lang'] = $currentLang;
@@ -44,10 +45,10 @@ class EditoraController extends Controller
          *
          **/
         if(!$nice_url) {
-            if(env('APP_HOMENICEURL') === true) {
+            if(config('editora.homeNiceUrl') === true) {
                 $nice = $this->utils->get_nice_from_id(1, $currentLang);
                 return redirect('/'.$currentLang.'/'.$nice);
-            } else if(!$language && env('APP_HOMENICEURL') === false) {
+            } else if(!$language && config('editora.homeNiceUrl') === false) {
                 return redirect('/'.$currentLang.'/');
             }
         }

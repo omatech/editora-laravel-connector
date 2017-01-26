@@ -6,7 +6,8 @@ use App;
 use Omatech\Editora\Extractor\Editora as Extractor;
 use Omatech\Editora\Extractor\GraphQLPreprocessor;
 
-class EditoraModel {
+class EditoraModel
+{
     public static $debugMessages = "";
 
     public static function extract($query, $params, $object, $ferret) {
