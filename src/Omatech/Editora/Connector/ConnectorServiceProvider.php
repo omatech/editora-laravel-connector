@@ -62,6 +62,12 @@ class ConnectorServiceProvider extends ServiceProvider
             return new Editora($this->db);
         });
 
-        $this->app['router']->middleware('setLocale', 'Omatech\Editora\Connector\Middlewares\SetLocaleMiddleware');
+        $laravelVersion = explode('.', $this->app::VERSION);
+        $laravelRelease = (int) $laravelVersion[1];
+
+        $middlewareMethod = "middleware";
+        if($laravelRelease >= 4) $middlewareMethod = "aliasMiddleware";
+
+        $this->app['router']->$middlewareMethod('setLocale', 'Omatech\Editora\Connector\Middlewares\SetLocaleMiddleware');
     }
 }
