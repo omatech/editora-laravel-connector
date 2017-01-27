@@ -62,7 +62,7 @@ class ConnectorServiceProvider extends ServiceProvider
             return new Editora($this->db);
         });
 
-        $laravelVersion = explode('.', $this->app::VERSION);
+        $laravelVersion = explode('.', $this->app->version());
         $laravelRelease = (int) $laravelVersion[1];
 
         $middlewareMethod = "middleware";
