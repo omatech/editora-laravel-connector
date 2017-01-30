@@ -3,7 +3,7 @@
 return [
     'routeParams' => [
         [
-            'nice_url'
+            'language'
         ],
         [
             'language',
