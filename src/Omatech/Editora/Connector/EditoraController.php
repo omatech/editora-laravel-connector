@@ -62,7 +62,7 @@ class EditoraController extends Controller
          *
          **/
         if($urlData['type'] === "Error") $urlData['class_tag'] = "Error_404";
-
+        if(!in_array($currentLang, config('editora.availableLanguages'))) $urlData['class_tag'] = "Error_404";
         /**
          *
          **/
@@ -103,7 +103,8 @@ class EditoraController extends Controller
     /**
      *
      **/
-    private function getBrowserLanguage() {
+    private function getBrowserLanguage() 
+    {
         $http_accept = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
         $deflang = "";
 
@@ -129,13 +130,17 @@ class EditoraController extends Controller
             $deflang = explode('-', $deflang);
             if(is_array($deflang)) $deflang = $deflang[0];
         }
-        return strtolower($deflang);
+
+        $lang = (in_array( strtolower($deflang), config('editora.availableLanguages') )) ? strtolower($deflang) : null;
+
+        return $lang;
     }
 
     /**
      *
      **/
-    private function getLanguageFromSession($currentLang) {
+    private function getLanguageFromSession($currentLang) 
+    {
         $language = (session('locale') !== null) ? session('locale') : $currentLang;
         return strtolower($language);
     }
