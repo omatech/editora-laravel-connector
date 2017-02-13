@@ -4,8 +4,6 @@ namespace Omatech\Editora\Connector;
 use App;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Omatech\Editora\Utils\Editora as Utils;
-use Omatech\Editora\Extractor\Editora as Extractor;
 
 session_start(); //Editora Admin Session
 
@@ -14,7 +12,7 @@ class EditoraController extends Controller
     protected $utils;
 
     public function __construct() {
-        $this->utils = App::make('Editora');
+        $this->utils = App::make('Utils');
     }
 
     public function init(Request $request) {

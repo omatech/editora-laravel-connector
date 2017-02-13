@@ -54,12 +54,12 @@ class ConnectorServiceProvider extends ServiceProvider
             'dbhost' => env('DB_HOST'),
         ];
 
-        $this->app->singleton('Extractor', function ($app) {
+        $this->app->bind('Extractor', function($app) {
             return new Extractor($this->db);
         });
 
-        $this->app->singleton('Editora', function ($app) {
-            return new Editora($this->db);
+        $this->app->bind('Utils', function($app) {
+            return new Utils($this->db);
         });
 
         $laravelVersion = explode('.', $this->app->version());
