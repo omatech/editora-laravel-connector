@@ -5,7 +5,7 @@ namespace Omatech\Editora\Connector;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Omatech\Editora\Extractor\Extractor;
-use Omatech\Editora\Utils\Editora;
+use Omatech\Editora\Utils\Editora as Utils;
 
 class ConnectorServiceProvider extends ServiceProvider
 {
