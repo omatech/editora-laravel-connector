@@ -47,19 +47,19 @@ class ConnectorServiceProvider extends ServiceProvider
             __DIR__.'/Configuration.php', 'editora'
         );
 
-        $this->db = [
+        $db = [
             'dbname' => env('DB_DATABASE'),
             'dbuser' => env('DB_USERNAME'),
             'dbpass' => env('DB_PASSWORD'),
             'dbhost' => env('DB_HOST'),
         ];
 
-        $this->app->bind('Extractor', function($app) {
-            return new Extractor($this->db);
+        $this->app->bind('Extractor', function() use($db) {
+            return new Extractor($db);
         });
 
-        $this->app->bind('Utils', function($app) {
-            return new Utils($this->db);
+        $this->app->bind('Utils', function() use ($db) {
+            return new Utils($db);
         });
 
         $laravelVersion = explode('.', $this->app->version());
