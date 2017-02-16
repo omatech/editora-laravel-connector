@@ -21,7 +21,11 @@ Route::group(['middleware' => ['web']], function()
 
         foreach($route as $param)
         {
-            $routeString .= '/{'.$param.'?}';
+            if(preg_match('/::/i', $param)) {
+                $routeString .= '/'.ltrim($param, ':');
+            } else {
+                $routeString .= '/{'.$param.'?}';
+            }
         }
 
         Route::get($routeString, 'Omatech\Editora\Connector\EditoraController@init');

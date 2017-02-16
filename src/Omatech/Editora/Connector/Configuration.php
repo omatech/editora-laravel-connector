@@ -9,6 +9,11 @@ return [
             'language',
             'nice_url'
         ]
+        /*,[
+            'language',
+            '::blog', Static Route
+            'nice_url'
+        ]*/
     ],
     'homeNiceUrl'        => false,
     'availableLanguages' => ['ca', 'es'],
