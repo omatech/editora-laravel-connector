@@ -74,6 +74,7 @@ class EditoraController extends Controller
 
         $class->inst_id = (array_key_exists('id', $urlData)) ? $urlData['id'] : 1;
         $class->preview = $preview;
+        $class->utils   = $this->utils;
 
         $class->viewData['metaLanguages']   = $this->otherLanguagesMeta($class->inst_id, $currentLang, $nice_url);
         $class->viewData['currentLanguage'] = $currentLang;
