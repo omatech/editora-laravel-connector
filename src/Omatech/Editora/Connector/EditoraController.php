@@ -104,7 +104,7 @@ class EditoraController extends Controller
      **/
     private function getBrowserLanguage()
     {
-        $http_accept = (array_key_exists('HTTP_ACCEPT_LANGUAGE', $_SERVER) ? $_SERVER['HTTP_ACCEPT_LANGUAGE'] : null;
+        $http_accept = (array_key_exists('HTTP_ACCEPT_LANGUAGE', $_SERVER)) ? $_SERVER['HTTP_ACCEPT_LANGUAGE'] : null;
         $deflang = "";
 
         if(isset($http_accept) && strlen($http_accept) > 1)  {
