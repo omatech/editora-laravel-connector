@@ -148,7 +148,7 @@ class EditoraController extends Controller
      *
      **/
     private function otherLanguagesMeta($inst_id, $currentLang, $nice_url) {
-        $metaLanguages = "";
+        $metaLanguages = [];
         $languages = $this->utils->other_languages_url($inst_id, $currentLang);
 
         if($languages !== null && $languages !== "") {
