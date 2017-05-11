@@ -19,5 +19,6 @@ return [
     'availableLanguages' => ['ca', 'es'],
     'defaultLanguage'    => 'ca',
     'forcedLanguage'     => '',
-    'adminAlias'         => 'admin'
+    'adminAlias'         => 'admin',
+    'middlewares'        => []
 ];

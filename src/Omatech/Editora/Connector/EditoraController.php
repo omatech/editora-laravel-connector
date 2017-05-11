@@ -13,6 +13,10 @@ class EditoraController extends Controller
 
     public function __construct() {
         $this->utils = App::make('Utils');
+
+        if(!empty(config('editora.middlewares')) && count(config('editora.middlewares'))) {
+            $this->middleware(config('editora.middlewares'));
+        }
     }
 
     public function init(Request $request) {
