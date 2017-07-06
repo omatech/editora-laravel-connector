@@ -12,7 +12,7 @@ class EditoraController extends Controller
     protected $utils;
     protected $class;
 
-    public function __construct() 
+    public function __construct(Request $request) 
     {
         $this->utils = App::make('Utils');
 
