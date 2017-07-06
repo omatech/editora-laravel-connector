@@ -21,8 +21,10 @@ class ConnectorServiceProvider extends ServiceProvider
             __DIR__.'/Configuration.php' => config_path('editora.php'),
         ]);
 
+        //Publicamos los controllers
         $this->publishes([
             __DIR__.'/PreviewController.php' => app_path('HTTP/Controllers/Editora/PreviewController.php'),
+            __DIR__.'/GlobalController.php' => app_path('HTTP/Controllers/Editora/GlobalController.php'),
         ]);
 
         //Publicamos los assets

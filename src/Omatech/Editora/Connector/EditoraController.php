@@ -82,7 +82,9 @@ class EditoraController extends Controller
         $class->viewData['metaLanguages']   = $this->otherLanguagesMeta($class->inst_id, $currentLang, $nice_url);
         $class->viewData['currentLanguage'] = $currentLang;
 
-        $this->middleware($class->middlewares());
+        if (method_exists($class, 'middlewares')) {
+            $this->middleware($class->middlewares());
+        }
 
         $this->class = $class;
     }
