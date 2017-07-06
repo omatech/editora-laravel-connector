@@ -10,16 +10,15 @@ session_start(); //Editora Admin Session
 class EditoraController extends Controller
 {
     protected $utils;
+    protected $class;
 
-    public function __construct() {
+    public function __construct() 
+    {
         $this->utils = App::make('Utils');
 
         if(!empty(config('editora.middlewares')) && count(config('editora.middlewares'))) {
             $this->middleware(config('editora.middlewares'));
         }
-    }
-
-    public function init(Request $request) {
 
         /**
          *
@@ -83,7 +82,14 @@ class EditoraController extends Controller
         $class->viewData['metaLanguages']   = $this->otherLanguagesMeta($class->inst_id, $currentLang, $nice_url);
         $class->viewData['currentLanguage'] = $currentLang;
 
-        return $class->render($request);
+        $this->middleware($class->middlewares());
+
+        $this->class = $class;
+    }
+
+    public function init(Request $request) 
+    {
+        return $this->class->render($request);
     }
 
     /**

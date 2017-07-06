@@ -15,6 +15,8 @@ Route::group(['middleware' => ['web']], function()
 {
     $routes = config('editora.routeParams');
 
+    Route::get('/preview/{lang}/{nice_url}', 'App\Http\Controllers\Editora\PreviewController@index');
+
     foreach($routes as $route)
     {
         $routeString = '';

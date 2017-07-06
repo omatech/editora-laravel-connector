@@ -16,9 +16,13 @@ class ConnectorServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //Publicamos el archivo de confuración
+        //Publicamos el archivo de configuración
         $this->publishes([
             __DIR__.'/Configuration.php' => config_path('editora.php'),
+        ]);
+
+        $this->publishes([
+            __DIR__.'/PreviewController.php' => app_path('HTTP/Controllers/Editora/PreviewController.php'),
         ]);
 
         //Publicamos los assets
