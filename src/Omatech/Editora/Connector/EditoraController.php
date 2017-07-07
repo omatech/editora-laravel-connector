@@ -4,6 +4,7 @@ namespace Omatech\Editora\Connector;
 use App;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 session_start(); //Editora Admin Session
 
@@ -48,9 +49,9 @@ class EditoraController extends Controller
         if(!$nice_url) {
             if(config('editora.homeNiceUrl') === true) {
                 $nice = $this->utils->get_nice_from_id(1, $currentLang);
-                return redirect('/'.$currentLang.'/'.$nice);
+                Redirect::to('/'.$currentLang.'/'.$nice)->send();
             } else if(!$language && config('editora.homeNiceUrl') === false) {
-                return redirect('/'.$currentLang.'/');
+                Redirect::to('/'.$currentLang.'/')->send();
             }
         }
 
