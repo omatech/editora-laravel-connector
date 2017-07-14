@@ -29,6 +29,7 @@ class EditoraController extends Controller
         $req_info = $request->input('req_info');
 
         $preview = $this->editMode($req_info);
+        $request->request->add(['preview' => $preview]);
 
         /**
          *
