@@ -18,6 +18,7 @@ return [
     'homeNiceUrl'        => false,
     'availableLanguages' => ['ca', 'es'],
     'defaultLanguage'    => 'ca',
+    'ignoreBrowserLanguage' => false,
     'forcedLanguage'     => '',
     'adminAlias'         => 'admin',
     'middlewares'        => []

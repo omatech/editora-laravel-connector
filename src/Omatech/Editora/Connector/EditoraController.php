@@ -34,7 +34,10 @@ class EditoraController extends Controller
         /**
          *
          **/
-        $currentLang = $this->getBrowserLanguage();
+        $currentLang = null;
+        if(config('editora.ignoreBrowserLanguage') !== true) {
+            $currentLang = $this->getBrowserLanguage();
+        }
         $currentLang = $this->getLanguageFromSession($currentLang);
         $currentLang = (isset($language) && in_array($language, config('editora.availableLanguages'))) ? $language : $currentLang;
         $currentLang = ($currentLang != '') ? $currentLang : config('editora.defaultLanguage');
