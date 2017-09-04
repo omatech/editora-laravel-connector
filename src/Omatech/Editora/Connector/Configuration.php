@@ -22,5 +22,5 @@ return [
     'forcedLanguage'     => '',
     'adminAlias'         => 'admin',
     'middlewares'        => [],
-    'extractNullValues'  => true
+    'extractNullValues'  => false
 ];
