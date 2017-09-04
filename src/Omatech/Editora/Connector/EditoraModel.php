@@ -23,7 +23,7 @@ class EditoraModel
         $params['lang'] = App::getLocale();
         $params['metadata'] = true;
 
-        $query = GraphQLPreprocessor::generate($query);
+        $query = GraphQLPreprocessor::generate($query, config('editora.extractNullValues', false));
         return self::extract($query, $params, 'array', true);
     }
 }

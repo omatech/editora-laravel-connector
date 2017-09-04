@@ -21,5 +21,6 @@ return [
     'ignoreBrowserLanguage' => false,
     'forcedLanguage'     => '',
     'adminAlias'         => 'admin',
-    'middlewares'        => []
+    'middlewares'        => [],
+    'extractNullValues'  => true
 ];
