@@ -51,11 +51,16 @@ class EditoraController extends Controller
          *
          **/
         if(!$nice_url) {
-            if(config('editora.homeNiceUrl') === true) {
-                $nice = $this->utils->get_nice_from_id(1, $currentLang);
-                Redirect::to('/'.$currentLang.'/'.$nice)->send();
-            } else if(!$language && config('editora.homeNiceUrl') === false) {
-                Redirect::to('/'.$currentLang.'/')->send();
+            if (!empty(config('editora.ignoreUrlLanguage')) && config('editora.ignoreUrlLanguage') === true && !in_array($language, config('editora.availableLanguages')) && $language!=null ) {
+                $nice_url = $language;
+                $language = config('editora.defaultLanguage');
+            } else {
+                if (config('editora.homeNiceUrl') === true) {
+                    $nice = $this->utils->get_nice_from_id(1, $currentLang);
+                    Redirect::to('/' . $currentLang . '/' . $nice)->send();
+                } else if (!$language && config('editora.homeNiceUrl') === false) {
+                    Redirect::to('/' . $currentLang . '/')->send();
+                }
             }
         }
 
