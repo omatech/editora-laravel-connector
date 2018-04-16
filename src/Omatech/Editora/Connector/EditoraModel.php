@@ -21,7 +21,9 @@ class EditoraModel
 
     public static function magic($query, $params) {
         $params['lang'] = App::getLocale();
-        $params['metadata'] = true;
+        if (!isset($params['metadata'])){
+            $params['metadata'] = true;
+        }
 
         $query = GraphQLPreprocessor::generate($query, config('editora.extractNullValues', false));
         return self::extract($query, $params, 'array', true);
