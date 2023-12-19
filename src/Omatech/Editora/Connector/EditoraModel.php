@@ -24,8 +24,19 @@ class EditoraModel
         if (!isset($params['metadata'])){
             $params['metadata'] = true;
         }
-
+        if (isset($params['id'])){
+            $params['id'] = self::real_escape_string($params['id']);
+        }
         $query = GraphQLPreprocessor::generate($query, config('editora.extractNullValues', false));
         return self::extract($query, $params, 'array', true);
+    }
+
+    private static function real_escape_string($input) {
+        if(is_array($input))
+            return array_map(__METHOD__, $input);
+        if(!empty($input) && is_string($input)) {
+            return str_replace(array('\\', "\0", "\n", "\r", "'", '"', "\x1a"), array('\\\\', '\\0', '\\n', '\\r', "\\'", '\\"', '\\Z'), $input);
+        }
+        return $input;
     }
 }
