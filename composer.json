@@ -3,6 +3,7 @@
     "description": "",
     "minimum-stability":"dev",
     "require": {
+        "php": "^8.2",
         "omatech/editora-utils": "dev-master",
         "omatech/editora-extractor": "dev-master"
     },

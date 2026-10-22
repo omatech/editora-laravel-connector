@@ -34,8 +34,10 @@ class ConnectorServiceProvider extends ServiceProvider
             __DIR__.'/Assets/images' => public_path('images'),
         ], 'public');
 
-        //Rutas
-        include __DIR__.'/Routes.php';
+        //Rutas: després de les de l'app, perquè el catch-all /{language?}/{nice_url?} no les tapi
+        $this->app->booted(function () {
+            $this->loadRoutesFrom(__DIR__.'/Routes.php');
+        });
 
         //Directivas de Blade
         include __DIR__.'/Directives/GenerateEditLinkDirective.php';
@@ -53,11 +55,14 @@ class ConnectorServiceProvider extends ServiceProvider
             __DIR__.'/Configuration.php', 'editora'
         );
 
+        // config() en lloc d'env(): amb config:cache env() retorna null fora dels fitxers de config
+        $connection = config('database.connections.'.config('database.default'));
         $db = [
-            'dbname' => env('DB_DATABASE'),
-            'dbuser' => env('DB_USERNAME'),
-            'dbpass' => env('DB_PASSWORD'),
-            'dbhost' => env('DB_HOST'),
+            'dbname' => $connection['database'] ?? null,
+            'dbuser' => $connection['username'] ?? null,
+            'dbpass' => $connection['password'] ?? null,
+            'dbhost' => $connection['host'] ?? null,
+            'dbport' => $connection['port'] ?? 3306,
         ];
 
         $this->app->bind('Extractor', function() use($db) {
@@ -68,12 +73,6 @@ class ConnectorServiceProvider extends ServiceProvider
             return new Utils($db);
         });
 
-        $laravelVersion = explode('.', $this->app->version());
-        $laravelRelease = (int) $laravelVersion[1];
-
-        $middlewareMethod = "middleware";
-        if($laravelRelease >= 4) $middlewareMethod = "aliasMiddleware";
-
-        $this->app['router']->$middlewareMethod('setLocale', 'Omatech\Editora\Connector\Middlewares\SetLocaleMiddleware');
+        $this->app['router']->aliasMiddleware('setLocale', 'Omatech\Editora\Connector\Middlewares\SetLocaleMiddleware');
     }
 }
