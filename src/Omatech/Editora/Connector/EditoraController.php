@@ -57,9 +57,9 @@ class EditoraController extends Controller
             } else {
                 if (config('editora.homeNiceUrl') === true) {
                     $nice = $this->utils->get_nice_from_id(1, $currentLang);
-                    Redirect::to('/' . $currentLang . '/' . $nice)->send();
+                    throw new \Illuminate\Http\Exceptions\HttpResponseException(Redirect::to('/' . $currentLang . '/' . $nice));
                 } else if (!$language && config('editora.homeNiceUrl') === false) {
-                    Redirect::to('/' . $currentLang . '/')->send();
+                    throw new \Illuminate\Http\Exceptions\HttpResponseException(Redirect::to('/' . $currentLang . '/'));
                 }
             }
         }

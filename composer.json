@@ -4,8 +4,8 @@
     "minimum-stability":"dev",
     "require": {
         "php": "^8.2",
-        "omatech/editora-utils": "dev-master",
-        "omatech/editora-extractor": "dev-master"
+        "omatech/editora-utils": "^2.0",
+        "omatech/editora-extractor": "^2.0"
     },
     "require-dev": {
     },
