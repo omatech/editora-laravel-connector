@@ -16,7 +16,10 @@ class SetLocaleMiddleware
      */
     public function handle($request, Closure $next)
     {
-        App::setLocale($request->route('language'));
+        // The locale reaches the extractor SQL: only configured languages pass
+        $language = $request->route('language');
+        abort_unless(in_array($language, config('editora.availableLanguages'), true), 404);
+        App::setLocale($language);
         return $next($request);
     }
 }
