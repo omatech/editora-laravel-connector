@@ -163,16 +163,16 @@
         },
         {
             "name": "omatech/editora-extractor",
-            "version": "v2.0.0",
+            "version": "v2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/omatech/editora-extractor.git",
-                "reference": "dbd957f2693892b70c926cb5789233b34aaf8290"
+                "reference": "02b87f6759c5c9c133648de1217658edf1b7878b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/omatech/editora-extractor/zipball/dbd957f2693892b70c926cb5789233b34aaf8290",
-                "reference": "dbd957f2693892b70c926cb5789233b34aaf8290",
+                "url": "https://api.github.com/repos/omatech/editora-extractor/zipball/02b87f6759c5c9c133648de1217658edf1b7878b",
+                "reference": "02b87f6759c5c9c133648de1217658edf1b7878b",
                 "shasum": ""
             },
             "require": {
@@ -181,7 +181,7 @@
                 "webonyx/graphql-php": "^15.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^11.0"
+                "phpunit/phpunit": "13.4.6"
             },
             "type": "library",
             "autoload": {
@@ -193,27 +193,30 @@
             "description": "Extract information from Editora in powerful and misterious ways using Facebook GraphQL",
             "support": {
                 "issues": "https://github.com/omatech/editora-extractor/issues",
-                "source": "https://github.com/omatech/editora-extractor/tree/v2.0.0"
+                "source": "https://github.com/omatech/editora-extractor/tree/v2.0.1"
             },
-            "time": "2026-10-26T15:28:11+00:00"
+            "time": "2026-11-17T21:40:50+00:00"
         },
         {
             "name": "omatech/editora-utils",
-            "version": "v2.0.0",
+            "version": "v2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/omatech/editora-utils.git",
-                "reference": "4a50bb22c5ff13210c07f916ad8addd35be72ed2"
+                "reference": "e2be24e26c607ea308069ddbc80a9e1c53f459b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/omatech/editora-utils/zipball/4a50bb22c5ff13210c07f916ad8addd35be72ed2",
-                "reference": "4a50bb22c5ff13210c07f916ad8addd35be72ed2",
+                "url": "https://api.github.com/repos/omatech/editora-utils/zipball/e2be24e26c607ea308069ddbc80a9e1c53f459b0",
+                "reference": "e2be24e26c607ea308069ddbc80a9e1c53f459b0",
                 "shasum": ""
             },
             "require": {
                 "doctrine/dbal": "^3.9 || ^4.0",
                 "php": "^8.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "13.4.6"
             },
             "type": "library",
             "autoload": {
@@ -225,9 +228,9 @@
             "description": "Utils package",
             "support": {
                 "issues": "https://github.com/omatech/editora-utils/issues",
-                "source": "https://github.com/omatech/editora-utils/tree/v2.0.0"
+                "source": "https://github.com/omatech/editora-utils/tree/v2.0.1"
             },
-            "time": "2026-10-22T14:55:27+00:00"
+            "time": "2026-11-17T21:40:54+00:00"
         },
         {
             "name": "psr/cache",
