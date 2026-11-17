@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'database_timezone' => env('EDITORA_DATABASE_TIMEZONE', 'Europe/Madrid'),
     'routeParams' => [
         [
             'language'

@@ -1,17 +1,37 @@
 {
-    "name": "omatech/editora-laravel-connector",
-    "description": "",
-    "minimum-stability":"dev",
-    "require": {
-        "php": "^8.2",
-        "omatech/editora-utils": "^2.0",
-        "omatech/editora-extractor": "^2.0"
-    },
-    "require-dev": {
-    },
-    "autoload": {
-        "psr-4": {
-            "Omatech\\": "src/Omatech"
-        }
+  "name": "omatech/editora-laravel-connector",
+  "description": "",
+  "minimum-stability": "dev",
+  "require": {
+    "php": "^8.2",
+    "omatech/editora-utils": "^2.0",
+    "omatech/editora-extractor": "^2.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "13.4.6",
+    "orchestra/testbench": "^11.3.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Omatech\\": "src/Omatech"
     }
+  },
+  "config": {
+    "platform": {
+      "php": "8.5.12"
+    },
+    "allow-plugins": false,
+    "sort-packages": true,
+    "github-protocols": [
+      "https"
+    ]
+  },
+  "scripts": {
+    "test": "phpunit",
+    "check": [
+      "@test",
+      "@composer validate --no-check-publish",
+      "@composer audit --locked"
+    ]
+  }
 }

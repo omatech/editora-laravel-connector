@@ -55,23 +55,13 @@ class ConnectorServiceProvider extends ServiceProvider
             __DIR__.'/Configuration.php', 'editora'
         );
 
-        // config() en lloc d'env(): amb config:cache env() retorna null fora dels fitxers de config
-        $connection = config('database.connections.'.config('database.default'));
-        $db = [
-            'dbname' => $connection['database'] ?? null,
-            'dbuser' => $connection['username'] ?? null,
-            'dbpass' => $connection['password'] ?? null,
-            'dbhost' => $connection['host'] ?? null,
-            'dbport' => $connection['port'] ?? 3306,
-        ];
-
-        $this->app->bind('Extractor', function() use($db) {
-            return new Extractor($db);
-        });
-
-        $this->app->bind('Utils', function() use ($db) {
-            return new Utils($db);
-        });
+        $name = config('database.default');
+        if (config('database.connections.'.$name.'.driver') === 'mysql') {
+            config(['database.connections.'.$name.'.timezone' => DatabaseConnection::offset()]);
+        }
+        // Resolve after the application's providers have finished configuring the connection.
+        $this->app->bind('Extractor', static fn () => new Extractor(DatabaseConnection::open()));
+        $this->app->bind('Utils', static fn () => new Utils(DatabaseConnection::open()));
 
         $this->app['router']->aliasMiddleware('setLocale', 'Omatech\Editora\Connector\Middlewares\SetLocaleMiddleware');
     }
